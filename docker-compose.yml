@@ -1,0 +1,104 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: vsu_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: vsu_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d vsu_db"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  redis:
+    image: redis:7
+    container_name: vsu_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  api_service:
+    build:
+      context: .
+      dockerfile: services/api_service/Dockerfile
+    container_name: vsu_api_service
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgres://admin:admin@postgres:5432/vsu_db
+      REDIS_URL: redis://redis:6379
+      RUST_LOG: info
+    ports:
+      - "8080:8080"
+
+  admin_service:
+    build:
+      context: .
+      dockerfile: services/admin_service/Dockerfile
+    container_name: vsu_admin_service
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgres://admin:admin@postgres:5432/vsu_db
+      REDIS_URL: redis://redis:6379
+      RUST_LOG: info
+    ports:
+      - "8081:8081"
+
+  parser_service:
+    build:
+      context: .
+      dockerfile: services/parser_service/Dockerfile
+    container_name: vsu_parser_service
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgres://admin:admin@postgres:5432/vsu_db
+      REDIS_URL: redis://redis:6379
+      RUST_LOG: info
+
+  telegram_service:
+    build:
+      context: .
+      dockerfile: services/telegram_service/Dockerfile
+    container_name: vsu_telegram_service
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgres://admin:admin@postgres:5432/vsu_db
+      REDIS_URL: redis://redis:6379
+      # TELEGRAM_TOKEN: "сюда позже"
+      RUST_LOG: info
+
+volumes:
+  postgres_data:
