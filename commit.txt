@@ -1,0 +1,88 @@
+✨ feat — новая функциональность
+Используй, когда добавляешь новую фичу.
+Примеры:
+    feat: add user registration endpoint
+    feat(api): implement pagination
+    feat(cli): add --verbose flag
+    feat(db): support soft deletes
+
+🐛 fix — исправление ошибки
+Используй, когда исправляешь баг.
+Примеры:
+    fix: handle empty input correctly
+    fix(api): return proper status code
+    fix(db): fix transaction rollback logic
+    fix(cli): correct argument parsing
+
+🔧 refactor — изменение структуры без изменения поведения
+Ты уже видел часть примеров, добавляю расширенную подборку.
+Примеры:
+    refactor: simplify handler logic
+    refactor: remove redundant code
+    refactor: extract helper module
+    refactor: reduce nesting in match
+    refactor: replace loops with iterators
+    refactor(db): extract repository layer
+    refactor(core): reorganize domain models
+    refactor(tests): extract shared fixtures
+
+📚 docs — документация
+Используй, когда меняешь только документацию.
+Примеры:
+    docs: update README with usage examples
+    docs(api): add rustdoc comments
+    docs: fix typos in documentation
+    docs: add architecture overview
+
+🧪 test — тесты
+Используй, когда добавляешь или меняешь тесты.
+Примеры:
+    test: add integration tests for auth
+    test: improve error handling coverage
+    test(utils): add unit tests for parser
+    test: refactor fixtures
+
+🚀 perf — оптимизация производительности
+Используй, когда ускоряешь код.
+Примеры:
+    perf: reduce allocations in hot path
+    perf: optimize query building
+    perf: improve hashing performance
+    perf: cache expensive computation
+
+🛠 chore — рутинные задачи, не влияющие на код
+Используй для обновлений зависимостей, CI, конфигов.
+Примеры:
+    chore: update dependencies
+    chore: bump Rust toolchain version
+    chore(ci): add lint workflow
+    chore: clean up unused files
+
+🎨 style — форматирование, пробелы, без изменения логики
+Используй, когда меняешь только стиль.
+Примеры:
+    style: run cargo fmt
+    style: reorder imports
+    style: fix indentation
+    style: apply clippy suggestions
+
+🔒 security — исправление уязвимостей
+Используй, когда исправляешь что‑то связанное с безопасностью.
+Примеры:
+    security: sanitize user input
+    security: fix token validation
+    security: update vulnerable dependency
+
+📦 build — сборка, зависимости, инструменты
+Используй, когда меняешь build‑систему.
+Примеры:
+    build: update Cargo.toml features
+    build: add release profile optimizations
+    build: fix build script
+
+🔁 ci — изменения в CI/CD
+Используй для GitHub Actions, pipelines.
+Примеры:
+    ci: add test workflow
+    ci: fix caching in pipeline
+    ci: update build matrix
